@@ -1,0 +1,45 @@
+##import dependencies## 
+
+#plotting#
+import matplotlib.pyplot as plt
+from matplotlib import figure
+
+#TDA#
+import gudhi
+
+#file reading#
+import laspy as lp #specifically for .las and .laz files. Currently don't have a way to read in .e57 files
+import os
+import glob 
+
+#other#
+import numpy as np
+import time
+
+#set directory to wherever you have your data stored
+os.chdir("/Users/oliviachandrasekhar/Desktop/s21_internship/data/tls_data/thinned_all")
+#create a list of everything in the directory of a certain file type
+list = glob.glob('*.las') #change to .laz for plot clips or .las for full tile or BLK scans
+#sort the list
+list = sorted(list)
+#check that you loaded it all
+len(list)
+
+num_tiles=len(list)
+tiles= []
+
+#for loop to read in data, convert to np arrays--needed for TDA algorithms#
+for i in range(num_tiles):
+    file=lp.file.File(list[i], mode="r")
+    file_array=np.array((file.x, file.y, file.z)).transpose()
+    tiles.append(file_array)
+ #process all tiles, save persistance diagrams
+#keeping track of time to see how long our program takes to run. Can also use other progress-capture metrics
+
+start_time=time.time() 
+for i in range(1): #use index num_tiles to run through all of them
+    tile=tiles[i] #run through the list
+    alpha_complex = gudhi.AlphaComplex(tile) #create the alpha complex--triangulates the data, basically
+    simplex_tree = alpha_complex.create_simplex_tree() #constructs simplicial complex. can set max_alpha_square--default is infinity
+ print("My program took", (time.time() - start_time), "seconds to run")   
+    
