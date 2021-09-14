@@ -9,6 +9,14 @@ The primary notebook is the "read-process-data" notebook. Here, you can:
  -report various information about the resulting simplicial complexes
  -create and display persistance diagrams
  -generate betti numbers as a function of the alpha radius, plot this data and write it to a .cvs file
+ 
+ The "visualization" notebook allows you to visualize the construction of the alpha complexes for different values of alpha_max, which is the alpha radius at which you stop the filtration.
+ 
+ The "distance-metrics" notebook allows you to calculate the bottleneck distance for a given homology group, which gives you an idea of how "far apart" two persistence diagrams are. 
+ 
+ The "k-means" notebook uses output from the "read-process-data" notebook (in particular, the betti numbers) and runs a k means clustering algorithm to cluster data by relative betti number.
+ 
+ 
 
 
  
